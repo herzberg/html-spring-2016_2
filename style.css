@@ -41,3 +41,11 @@ div{
 		background-color:red;
 	}
 }
+
+@media all and (min-width: 700px){
+	body{
+		background-color:blue;
+	}
+}
+
+
