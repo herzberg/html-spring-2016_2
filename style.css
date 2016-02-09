@@ -35,3 +35,9 @@ div{
 .description{
 	color: #bbbbbb;
 }
+
+@media all and (min-width: 500px){
+	body{
+		background-color:red;
+	}
+}
