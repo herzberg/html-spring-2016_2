@@ -1,0 +1,37 @@
+body{
+	background-color: #eee;
+	text-align: center;
+}
+
+h1{
+	color: # 111;
+	font: sans-serif;
+}
+section{
+	color: blue;
+	border-top:yellow dotted;
+
+}
+
+img{
+	width: 190px;
+}
+
+div{
+	border-bottom: #111 solid;
+}
+
+.port{
+	border-left: #ccc dotted;
+}
+
+.userinput{
+	border-left: green dotted;
+}
+
+.drive{
+	border-left: pink dotted;
+}
+.description{
+	color: #bbbbbb;
+}
