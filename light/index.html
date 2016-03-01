@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>js!</title>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script>
+      $(document).ready(function(){
+
+        $("h1").click(function(){
+
+          $("div").removeClass("off");
+          $("div").addClass("on");
+
+        });
+
+        $("h2").click(function(){
+          $("div").removeClass("on");
+          $("div").addClass("off");
+        })
+
+      });
+    </script>
+    <style>
+
+      .on {
+        background: url('./on.jpg');
+      }
+
+      .off {
+        background: url('./off.jpg');
+      }
+
+      .light{
+        height: 300px;
+        width: 200px;
+        background-size: 100% 100%;
+      }
+
+    </style>
+  </head>
+  <body>
+
+    <h1>ON</h1>
+    <h2>OFF</h2>
+    <div class="on light"><div>
+  </body>
+</html>
