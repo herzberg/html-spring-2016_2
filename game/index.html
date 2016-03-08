@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Fun for everyone</title>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+
+    <script>
+    $(document).ready(function(){
+
+      // var response = prompt("What is your favorite food?");
+      // console.log(response);
+
+      var totalClicks = 0;
+      funCount = 5;
+      $('#pic').click(function() {
+      		totalClicks++
+      		console.log("your correct that worked")
+      		$(this).addClass("bigger")
+      		if(funCount < totalClicks){
+      			$("#fun").html("<img src='fun.png' />")
+      			$("#clickcount").html("...yeah.. that's right... that's fun for you!")
+      			$("#pic").addClass('invissable')
+      		}else
+      			$("#clickcount").html("you've clicked it " + (totalClicks) +  " times... try " + (funCount - totalClicks) + " for more fun :P")
+      });
+
+
+    });
+    </script>
+    <style type="text/css">
+    	.bigger{
+    		height: 500px;
+    		width: 800px;
+    	}
+    	img{
+    		transition: width 5s, height 2s;
+    	}
+    	.invissable{
+    		display: none;
+    	}
+    </style>
+  </head>
+  <body>  	
+  	<div id='fun'></div>
+  	<div id='clickcount'></div>
+  	<img id='pic' src="pic.jpg" height='100px' width='200px'/>
+  </body>
+</html>
