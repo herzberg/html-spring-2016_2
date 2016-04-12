@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Google Spreadsheet JSON Example</title>
+		<script src="http://code.jquery.com/jquery-latest.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.3.5/tabletop.min.js"></script>
+		<script src="https://cdn.rawgit.com/CooperUnion/javascript-learning/master/tabletop-simple.js"></script>
+		<script>
+			function addPics(hashtag,other){
+				$.getJSON("http://cooper-union-instagram-proxy.herokuapp.com/search/tag/" + hashtag, function(response2){
+						$("body").append("<h1>" + other + " " + hashtag +"</h1>")
+					    for(var i=0; i<response2.length; i++) {
+							$("body").append("<img width=100 height=100 src="+response2[i].images.thumbnail.url+" />");
+					        }
+				});
+			}
+
+			$(document).ready(function(){
+
+					//configure spreadsheet
+				var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/1qZC6iVIbN34LjSlSk5x3w7jKbcmZxpCvWKIZSG64z1I/pubhtml?gid=1807890292&single=true';
+
+				getSpreadsheetJSON(public_spreadsheet_url, function(responses){
+					console.log(responses);
+					
+					for(var i = 0; i<responses.length; i++) {
+						response = responses[i]
+						console.log(response)
+					
+						$("body").append("<div>")
+						
+						hashtag = response.iverb
+						addPics(hashtag,"I")
+						addPics(response.atplace,"at")
+
+						addPics(response.whileiverb,"while I")
+						addPics(response.withabignoun,"with a BIG")
+
+						$("body").append("</div>")					
+					}
+
+				});
+
+			});
+		</script>
+		<style>
+
+		</style>
+
+	</head>
+	<body>
+	</body>
+</html>
