@@ -17,7 +17,7 @@
     <div class="remotevideos">
 
     </div>
-    <h2>Recordings  ( Click on your camera stream to start record)</h2>
+    <h2>Click on vid to mute</h2>
     <ul></ul>
 
 
@@ -25,6 +25,8 @@
     <div id="immediate"></div>
     <script src="XSockets.latest.js"></script>
     <script src="XSockets.WebRTC.latest.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    
     <script>
 
         var $ = function (selector, el) {
@@ -105,13 +107,16 @@
                 trace("Got a localStream", mediaStream.id);
                 attachMediaStream($(".localvideo video "), mediaStream);
                 // if user click, video , call the recorder
+                
                 $(".localvideo video ").addEventListener("click", function () {
-                    recordMediaStream(rtc.getLocalStreams()[0]);
+                    //recordMediaStream(rtc.getLocalStreams()[0]);
+                    rtc.muteAudio(true)
                 });
+                  
             };
             var onContextCreated = function (ctx) {
                 trace("RTC object created, and a context is created - ", ctx);
-                rtc.getUserMedia(rtc.userMediaConstraints.hd(false), onGetUerMedia, onError);
+                rtc.getUserMedia(rtc.userMediaConstraints.hd(true), onGetUerMedia, onError); //true is using audio
             };
             var onOpen = function () {
                 trace("Connected to the brokerController - 'connectionBroker'");
@@ -125,11 +130,12 @@
 
 
                 rtc.onanswer = function (event) {
+                    trace("on answer")
 
                 };
 
                 rtc.onoffer = function (event) {
-
+                    trace("on offer")
                 };
 
             };
@@ -143,8 +149,16 @@
                 broker.onopen = onOpen;
             };
             ws.onconnected = onConnected;
+
+            /*
+            jQuery("#mute").on("click", function(){
+                console.log("The paragraph was clicked.");
+                rtc.muteAudio(true)                
+            });
+            */
         });
         document.addEventListener("DOMContentLoaded", main);
+        
 
     </script>
 </body>
