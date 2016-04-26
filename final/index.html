@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Daf Roulette</title>
+		<script src="http://code.jquery.com/jquery-latest.js"></script>
+		<script>
+
+		function initialize() {
+			    console.log("Initializing; room=99688630.");
+			    card = document.getElementById("card");
+			    localVideo = document.getElementById("localVideo");
+			    miniVideo = document.getElementById("miniVideo");
+			    remoteVideo = document.getElementById("remoteVideo");
+			    resetStatus();
+			    openChannel('AHRlWrqvgCpvbd9B-Gl5vZ2F1BlpwFv0xBUwRgLF/* ...*/');
+			    doGetUserMedia();
+		}
+	  	function openChannel(channelToken) {
+		  console.log("Opening channel.");
+		  var channel = new goog.appengine.Channel(channelToken);
+		  var handler = {
+		    'onopen': onChannelOpened,
+		    'onmessage': onChannelMessage,
+		    'onerror': onChannelError,
+		    'onclose': onChannelClosed
+		  };
+		  socket = channel.open(handler);
+		}
+
+		function onUserMediaSuccess(stream) {
+		  console.log("User has granted access to local media.");
+		  // Call the polyfill wrapper to attach the media stream to this element.
+		  attachMediaStream(localVideo, stream);
+		  localVideo.style.opacity = 1;
+		  localStream = stream;
+		  // Caller creates PeerConnection.
+		  if (initiator) maybeStart();
+		}
+		function maybeStart() {
+		  if (!started && localStream && channelReady) {
+		    // ...
+		    createPeerConnection();
+		    // ...
+		    pc.addStream(localStream);
+		    started = true;
+		    // Caller initiates offer to peer.
+		    if (initiator)
+		      doCall();
+		  }
+		}
+
+		function createPeerConnection() {
+		  var pc_config = {"iceServers": [{"url": "stun:stun.l.google.com:19302"}]};
+		  try {
+		    // Create an RTCPeerConnection via the polyfill (adapter.js).
+		    pc = new RTCPeerConnection(pc_config);
+		    pc.onicecandidate = onIceCandidate;
+		    console.log("Created RTCPeerConnnection with config:\n" + "  \"" +
+		      JSON.stringify(pc_config) + "\".");
+		  } catch (e) {
+		    console.log("Failed to create PeerConnection, exception: " + e.message);
+		    alert("Cannot create RTCPeerConnection object; WebRTC is not supported by this browser.");
+		      return;
+		  }
+
+		  pc.onconnecting = onSessionConnecting;
+		  pc.onopen = onSessionOpened;
+		  pc.onaddstream = onRemoteStreamAdded;
+		  pc.onremovestream = onRemoteStreamRemoved;
+		}
+
+
+		function onRemoteStreamAdded(event) {
+		  // ...
+		  miniVideo.src = localVideo.src;
+		  attachMediaStream(remoteVideo, event.stream);
+		  remoteStream = event.stream;
+	  	  waitForRemoteVideo();
+		}
+
+		function doCall() {
+		  console.log("Sending offer to peer.");
+		  pc.createOffer(setLocalAndSendMessage, null, mediaConstraints);
+		}
+
+		function setLocalAndSendMessage(sessionDescription) {
+		  // Set Opus as the preferred codec in SDP if Opus is present.
+		  sessionDescription.sdp = preferOpus(sessionDescription.sdp);
+		  pc.setLocalDescription(sessionDescription);
+		  sendMessage(sessionDescription);
+		}
+
+			$(document).ready(function(){
+				console.log("test")
+			
+				 
+				$.getJSON("https://jsonp.afeld.me/?url=http://www.sefaria.org/api/texts/Genesis.2?commentary=0", function(response2){
+						console.log(response2)
+						console.log("yo")
+						$("body").append("<h1>"+response2.indexTitle + "</h1>")
+						text = response2.text;
+					    for(var i=0; i<text.length; i++) {
+							$("body").append("<div>" + text[i] + "</div>");
+				      	}
+				});
+				
+
+			});
+		</script>
+		<style>
+
+		</style>
+
+	</head>
+	<body>
+	</body>
+</html>
