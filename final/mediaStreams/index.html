@@ -1,28 +1,30 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title>XSockets.WebRTC Client example</title>
+    <title>Daf Roulette</title>
     <meta charset="utf-8" />
     <link href="css/example.css" rel="stylesheet" />
 
 
 </head>
 <body>
-    <h1>XSockets.WebRTC Client example </h1>
+    <h1>Daf Roulette</h1>
     <div class="localvideo">
         <video autoplay></video>
     </div>
 
+    <div id='peerlink'></div>
     <h2>Remote videos</h2>
     <div class="remotevideos">
 
     </div>
-    <h2>Click on vid to mute</h2>
+    <p>Click on vid to mute</p>
     <ul></ul>
 
 
-    <h2>Trace</h2>
-    <div id="immediate"></div>
+    
+    <div id="immediate">
+        <h5>Trace</h5></div>
     <script src="XSockets.latest.js"></script>
     <script src="XSockets.WebRTC.latest.js"></script>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
@@ -116,6 +118,8 @@
             };
             var onContextCreated = function (ctx) {
                 trace("RTC object created, and a context is created - ", ctx);
+                link = '/?p=' + ctx['PeerId']
+                jQuery("#peerlink").html("<a href='" + link + "'>" + link + "</a>");
                 rtc.getUserMedia(rtc.userMediaConstraints.hd(true), onGetUerMedia, onError); //true is using audio
             };
             var onOpen = function () {
