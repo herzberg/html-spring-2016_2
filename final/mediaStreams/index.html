@@ -32,6 +32,7 @@
 
     
     <script>
+        var ranMain  = false;
         var domainName = 'http://herzberg.github.io/html-spring-2016_2/final/mediaStreams/?p='
         var $ = function (selector, el) {
             if (!el) el = document;
@@ -49,13 +50,22 @@
         myDataRef.on("value", function(snapshot) {
             console.log("value",snapshot.val());  // Alerts "San 
             values = snapshot.val()
-            for (var key in values) {
-                console.log("item",values[key])
-                if(window.location.search.length <1){
-                    currLocation = location.protocol+'//'+location.host+location.pathname
-                    window.location.href =  currLocation + "?p=" + values[key]['peerId']
-                }
+            if(window.location.search.length <1){
+                for (var key in values) {
+                    console.log("item",values[key])
+                    
+                        currLocation = location.protocol+'//'+location.host+location.pathname
+                        console.log("going to another place" + values[key]['peerId'])
+                        window.location.href =  currLocation + "?p=" + values[key]['peerId']
+                        return;
+                    }
 
+            }
+            // if it didn't find anything 
+            console.log("calling main")
+            if(!ranMain){
+                main()
+                ranMain = true;
             }
         });
 
@@ -181,7 +191,7 @@
             });
             */
         });
-        document.addEventListener("DOMContentLoaded", main);
+        //document.addEventListener("DOMContentLoaded", main);
         
 
     </script>
