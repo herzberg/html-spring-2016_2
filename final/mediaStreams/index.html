@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <link href="css/example.css" rel="stylesheet" />
 
-
+    <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
 </head>
 <body>
     <h1>Daf Roulette</h1>
@@ -28,9 +28,11 @@
     <script src="XSockets.latest.js"></script>
     <script src="XSockets.WebRTC.latest.js"></script>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
+
+
     
     <script>
-
+        var domainName = 'http://herzberg.github.io/html-spring-2016_2/final/mediaStreams/?p='
         var $ = function (selector, el) {
             if (!el) el = document;
             return el.querySelector(selector);
@@ -41,6 +43,22 @@
             pre.textContent = JSON.stringify(what) + " - " + JSON.stringify(obj || "");
             $("#immediate").appendChild(pre);
         };
+
+        var myDataRef = new Firebase('https://dafrol1.firebaseio.com/')//https://y0gp5dt3ijs.firebaseio-demo.com/'); //https://blistering-inferno-4380.firebaseio.com/#-KGnfvm2IdyMaW2X8FeN|eec1c0291a7b8a6cd19793f80d64dc62
+        console.log(myDataRef)
+        myDataRef.on("value", function(snapshot) {
+            console.log("value",snapshot.val());  // Alerts "San 
+            values = snapshot.val()
+            for (var key in values) {
+                console.log("item",values[key])
+                if(window.location.search.length <1){
+                    currLocation = location.protocol+'//'+location.host+location.pathname
+                    window.location.href =  currLocation + "?p=" + values[key]['peerId']
+                }
+
+            }
+        });
+
 
         var main = (function () {
             var broker;
@@ -90,7 +108,7 @@
                 var videoToRemove = $("video[rel='" + peerId + "']");
                 $(".remotevideos").removeChild(videoToRemove);
             };
-            var oncConnectionCreated = function () {
+            var onConnectionCreated = function () {
                 console.log(arguments, rtc);
                 trace("oncconnectioncreated", arguments);
 
@@ -118,7 +136,9 @@
             };
             var onContextCreated = function (ctx) {
                 trace("RTC object created, and a context is created - ", ctx);
-                link = '/?p=' + ctx['PeerId']
+                peerId = ctx['PeerId']
+                link = domainName + peerId
+                myDataRef.push({peerId: peerId});
                 jQuery("#peerlink").html("<a href='" + link + "'>" + link + "</a>");
                 rtc.getUserMedia(rtc.userMediaConstraints.hd(true), onGetUerMedia, onError); //true is using audio
             };
@@ -128,7 +148,7 @@
 
                 rtc.onlocalstream = onLocalStream;
                 rtc.oncontextcreated = onContextCreated;
-                rtc.onconnectioncreated = oncConnectionCreated;
+                rtc.onconnectioncreated = onConnectionCreated;
                 rtc.onconnectionlost = onConnectionLost;
                 rtc.onremotestream = onRemoteStream;
 
