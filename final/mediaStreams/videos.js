@@ -13,7 +13,7 @@ function $_GET(param) {
     return vars;
 }
 
-var domainName = 'http://herzberg.github.io/html-spring-2016_2/final/mediaStreams/?p='
+var domainName = 'https://herzberg.github.io/html-spring-2016_2/final/mediaStreams/?p='
 function setPeerLink(peerId){
     console.log("setPeerLink",myPeerId,peerId)
     if(myPeerId == null && peerId != null){

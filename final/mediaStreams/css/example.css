@@ -16,6 +16,12 @@ body {
     margin-left:auto;
     border: 1px solid #333;
     z-index: 100;
+    min-width: 100px;
+}
+
+#sefariaText{
+    margin: 20px;
+    padding: 5px;
 }
 
 .localvideo video {
@@ -28,8 +34,12 @@ body {
     padding:10px; 
 }
 
+.allVideos{
+    width: 30%;
+}
+
 .remotevideos video{
-    max-height:350px;
+    max-height:220px;
     float:left;
 }
 

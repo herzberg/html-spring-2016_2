@@ -39,6 +39,8 @@
                 <h5>Trace</h5></div>
             </small></small>
         </div>
+        <div id='sefariaText'>
+        </div>
         <div id='chatbox'>
             <h3>Chat box</h3>
             <div id='messagesDiv'></div>
@@ -49,5 +51,24 @@
     
 
     <script src="videos.js"></script>
+    <script>
+
+            $(document).ready(function(){
+                console.log("test")
+            
+                 
+                $.getJSON("https://jsonp.afeld.me/?url=http://www.sefaria.org/api/texts/Genesis.2?commentary=0", function(response2){
+                        console.log(response2)
+                        console.log("yo")
+                        $("#sefariaText").append("<h1>"+response2.indexTitle + "</h1>")
+                        text = response2.text;
+                        for(var i=0; i<text.length; i++) {
+                            $("#sefariaText").append("<div>" + text[i] + "</div>");
+                        }
+                });
+                
+
+            });
+        </script>
 </body>
 </html>
