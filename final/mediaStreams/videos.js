@@ -14,17 +14,17 @@ function $_GET(param) {
 }
 
 var domainName = 'https://herzberg.github.io/html-spring-2016_2/final/mediaStreams/?p='
-function setPeerLink(peerId){
-    console.log("setPeerLink",myPeerId,peerId)
-    if(myPeerId == null && peerId != null){
-        myPeerId = peerId
-        console.log("have a peerId...",peerId)
-        //myDataRef.push({peerId: peerId});
-        //myUsersDataRef.push({peerId: peerId,random:myRandom});      
-        link = domainName + peerId
+function setContextId(contextId){
+    console.log("setContextId",myContextId,contextId)
+    if(myContextId == null && contextId != null){
+        myContextId = contextId
+        console.log("have a contextId...",contextId)
+        //myDataRef.push({contextId: contextId});
+        //myUsersDataRef.push({contextId: contextId,random:myRandom});      
+        link = domainName + contextId
         jQuery("#peerlink").html("<a href='" + link + "'>" + link + "</a>");
     }else{
-        console.log("not setting peer link",myPeerId,peerId)
+        console.log("not setting peer link",myContextId,contextId)
     }
 }
 
@@ -51,18 +51,18 @@ myUsersDataRef.on('child_added', function(snapshot) {
     console.log("new user? :", message)
     if(message.random == myRandom)
         return;
-    peerId = message.peerId
-    console.log("new person joined :", peerId)
-    if(peerId != null && peerId == myPeerId){
+    contextId = message.contextId
+    console.log("new person joined :", contextId)
+    if(contextId != null && contextId == myContextId){
         console.log("A person has joined reloading page...")
         alert("A person has joined reloading page...")
         location.reload()
     }
 });
 
-var myPeerId = null
+var myContextId = null
 var myRandom = Math.random();
-setPeerLink($_GET('p'))
+setContextId($_GET('p'))
 
 console.log(myDataRef)
 myDataRef.on("value", function(snapshot) {
@@ -73,8 +73,8 @@ myDataRef.on("value", function(snapshot) {
                 console.log("item",values[key])
             
                 currLocation = location.protocol+'//'+location.host+location.pathname
-                console.log("going to another place" + values[key]['peerId'])
-                window.location.href =  currLocation + "?p=" + values[key]['peerId']
+                console.log("going to another place" + values[key]['contextId'])
+                window.location.href =  currLocation + "?p=" + values[key]['contextId']
                 return;
             }
 
@@ -93,8 +93,10 @@ var main = (function () {
     var rtc;
     trace("Ready");
     trace("Try connect the connectionBroker");
+    //contextSettings = {}
+
     var ws = new XSockets.WebSocket("wss://rtcplaygrouund.azurewebsites.net:443", ["connectionbroker"], {
-        ctx: '23fbc61c-541a-4c0d-b46e-1a1f6473720a'
+        ctx: 'b1355242-e8ea-485b-a178-911e2186a5ba'
     });
 
     var onError = function (err) {
@@ -164,8 +166,9 @@ var main = (function () {
     };
     var onContextCreated = function (ctx) {
         trace("RTC object created, and a context is created - ", ctx);
-        peerId = ctx['PeerId']             
-        setPeerLink(peerId)
+        console.log('ctx',ctx)
+        contextId = ctx['Context']             
+        setContextId(contextId)
         rtc.getUserMedia(rtc.userMediaConstraints.hd(true), onGetUerMedia, onError); //true is using audio
     };
     var onOpen = function () {
