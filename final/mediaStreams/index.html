@@ -83,6 +83,7 @@
 
         var newPersonIsProbablyMyself = true;
         myUsersDataRef.on('child_added', function(snapshot) {
+            return;//This isn't working now
             var message = snapshot.val();
             peerId = message.peerId
             console.log("new person joined :", peerId)
