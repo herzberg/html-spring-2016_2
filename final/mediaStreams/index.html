@@ -88,9 +88,9 @@
             console.log("new person joined :", peerId)
             if(peerId != null && peerId == myPeerId){
                 if(newPersonIsProbablyMyself){
+                    newPersonIsProbablyMyself = false
                     return;
                 }
-                newPersonIsProbablyMyself = false
                 alert("A person has joined reloading page...")
                 location.reload()
             }
