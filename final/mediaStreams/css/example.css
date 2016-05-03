@@ -15,6 +15,7 @@ body {
     margin-right:auto;
     margin-left:auto;
     border: 1px solid #333;
+    z-index: 100;
 }
 
 .localvideo video {
@@ -28,7 +29,7 @@ body {
 }
 
 .remotevideos video{
-    max-height:120px;
+    max-height:350px;
     float:left;
 }
 
