@@ -2,9 +2,11 @@ body {
     
 }
 
+#container{
+    display: flex;
+}
 
 .localvideo {
-    position: absolute;
     right: 10px;
     top: 10px;
 }
@@ -18,7 +20,7 @@ body {
 
 }
 .remotevideos {
-    height:120px;
+    height:420px;
     background:#dadada;
     padding:10px; 
 }
