@@ -22,9 +22,10 @@
     <ul></ul>
 
 
-    
+    <small><small>
     <div id="immediate">
         <h5>Trace</h5></div>
+    </small></small>
     <script src="XSockets.latest.js"></script>
     <script src="XSockets.WebRTC.latest.js"></script>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
@@ -32,8 +33,40 @@
 
     
     <script>
-        var ranMain  = false;
+
+        function $_GET(param) {
+            var vars = {};
+            window.location.href.replace( location.hash, '' ).replace( 
+                /[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
+                function( m, key, value ) { // callback
+                    vars[key] = value !== undefined ? value : '';
+                }
+            );
+
+            if ( param ) {
+                return vars[param] ? vars[param] : null;    
+            }
+            return vars;
+        }
+
         var domainName = 'http://herzberg.github.io/html-spring-2016_2/final/mediaStreams/?p='
+        function setPeerLink(peerId){
+            console.log("setPeerLink",myPeerId,peerId)
+            if(myPeerId == null && peerId != null){
+                myPeerId = peerId
+                console.log("have a peerId...",peerId)
+                myDataRef.push({peerId: peerId});
+                myUsersDataRef.push({peerId: peerId});      
+                link = domainName + peerId
+                jQuery("#peerlink").html("<a href='" + link + "'>" + link + "</a>");
+            }else{
+                console.log("not setting peer link",myPeerId,peerId)
+            }
+        }
+
+        var ranMain  = false;
+
+        
         var $ = function (selector, el) {
             if (!el) el = document;
             return el.querySelector(selector);
@@ -45,7 +78,27 @@
             $("#immediate").appendChild(pre);
         };
 
-        var myDataRef = new Firebase('https://dafrol1.firebaseio.com/')//https://y0gp5dt3ijs.firebaseio-demo.com/'); //https://blistering-inferno-4380.firebaseio.com/#-KGnfvm2IdyMaW2X8FeN|eec1c0291a7b8a6cd19793f80d64dc62
+        var myUsersDataRef = new Firebase('https://dafrol1user.firebaseio.com/')
+        var myDataRef = new Firebase('https://dafrol1.firebaseio.com/')
+
+        var newPersonIsProbablyMyself = true;
+        myUsersDataRef.on('child_added', function(snapshot) {
+            var message = snapshot.val();
+            peerId = message.peerId
+            console.log("new person joined :", peerId)
+            if(peerId != null && peerId == myPeerId){
+                if(newPersonIsProbablyMyself){
+                    return;
+                }
+                newPersonIsProbablyMyself = false
+                alert("A person has joined reloading page...")
+                location.reload()
+            }
+        });
+
+        var myPeerId = null
+        setPeerLink($_GET('p'))
+        
         console.log(myDataRef)
         myDataRef.on("value", function(snapshot) {
             console.log("value",snapshot.val());  // Alerts "San 
@@ -146,10 +199,8 @@
             };
             var onContextCreated = function (ctx) {
                 trace("RTC object created, and a context is created - ", ctx);
-                peerId = ctx['PeerId']
-                link = domainName + peerId
-                myDataRef.push({peerId: peerId});
-                jQuery("#peerlink").html("<a href='" + link + "'>" + link + "</a>");
+                peerId = ctx['PeerId']             
+                setPeerLink(peerId)
                 rtc.getUserMedia(rtc.userMediaConstraints.hd(true), onGetUerMedia, onError); //true is using audio
             };
             var onOpen = function () {
