@@ -82,8 +82,8 @@
         var myDataRef = new Firebase('https://dafrol1.firebaseio.com/')
 
         myUsersDataRef.on('child_added', function(snapshot) {
-            return;//This isn't working now
             var message = snapshot.val();
+            console.log("new user? :", message)
             if(message.random == myRandom)
                 return;
             peerId = message.peerId
