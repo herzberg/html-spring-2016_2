@@ -56,7 +56,7 @@
                 myPeerId = peerId
                 console.log("have a peerId...",peerId)
                 myDataRef.push({peerId: peerId});
-                myUsersDataRef.push({peerId: peerId});      
+                myUsersDataRef.push({peerId: peerId,random:myRandom});      
                 link = domainName + peerId
                 jQuery("#peerlink").html("<a href='" + link + "'>" + link + "</a>");
             }else{
@@ -81,17 +81,14 @@
         var myUsersDataRef = new Firebase('https://dafrol1users.firebaseio.com/')
         var myDataRef = new Firebase('https://dafrol1.firebaseio.com/')
 
-        var newPersonIsProbablyMyself = true;
         myUsersDataRef.on('child_added', function(snapshot) {
             return;//This isn't working now
             var message = snapshot.val();
+            if(message.random == myRandom)
+                return;
             peerId = message.peerId
             console.log("new person joined :", peerId)
             if(peerId != null && peerId == myPeerId){
-                if(newPersonIsProbablyMyself){
-                    newPersonIsProbablyMyself = false
-                    return;
-                }
                 console.log("A person has joined reloading page...")
                 alert("A person has joined reloading page...")
                 location.reload()
@@ -99,6 +96,7 @@
         });
 
         var myPeerId = null
+        var myRandom = Math.random();
         setPeerLink($_GET('p'))
         
         console.log(myDataRef)
