@@ -78,7 +78,7 @@
             $("#immediate").appendChild(pre);
         };
 
-        var myUsersDataRef = new Firebase('https://dafrol1user.firebaseio.com/')
+        var myUsersDataRef = new Firebase('https://dafrol1users.firebaseio.com/')
         var myDataRef = new Firebase('https://dafrol1.firebaseio.com/')
 
         var newPersonIsProbablyMyself = true;
@@ -91,6 +91,7 @@
                     newPersonIsProbablyMyself = false
                     return;
                 }
+                console.log("A person has joined reloading page...")
                 alert("A person has joined reloading page...")
                 location.reload()
             }
