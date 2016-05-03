@@ -19,8 +19,8 @@ function setPeerLink(peerId){
     if(myPeerId == null && peerId != null){
         myPeerId = peerId
         console.log("have a peerId...",peerId)
-        myDataRef.push({peerId: peerId});
-        myUsersDataRef.push({peerId: peerId,random:myRandom});      
+        //myDataRef.push({peerId: peerId});
+        //myUsersDataRef.push({peerId: peerId,random:myRandom});      
         link = domainName + peerId
         jQuery("#peerlink").html("<a href='" + link + "'>" + link + "</a>");
     }else{
@@ -66,11 +66,11 @@ setPeerLink($_GET('p'))
 
 console.log(myDataRef)
 myDataRef.on("value", function(snapshot) {
-    console.log("value",snapshot.val());  // Alerts "San 
+    console.log("value",snapshot.val());
     values = snapshot.val()
-    if(window.location.search.length <1){
+    if($_GET('p') != null && false){
         for (var key in values) {
-            console.log("item",values[key])
+                console.log("item",values[key])
             
                 currLocation = location.protocol+'//'+location.host+location.pathname
                 console.log("going to another place" + values[key]['peerId'])
