@@ -156,7 +156,7 @@ var main = (function () {
         attachMediaStream($_num2(".localvideo video "), mediaStream);
         // if user click, video , call the recorder
         
-        $(".localvideo video ").addEventListener("click", function () {
+        $_num2(".localvideo video ").addEventListener("click", function () {
             //recordMediaStream(rtc.getLocalStreams()[0]);
             rtc.muteAudio(true)
         });

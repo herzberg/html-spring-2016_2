@@ -9,18 +9,20 @@ body {
 .localvideo {
     right: 10px;
     top: 10px;
+    float: right;
+    max-width: 220px;
+    position: relative;
+    margin-right:auto;
+    margin-left:auto;
+    border: 1px solid #333;
 }
 
 .localvideo video {
-    max-width: 240px;
     width:100%;
-    margin-right:auto;
-    margin-left:auto;
-    border: 2px solid #333;
-
 }
 .remotevideos {
     height:420px;
+    width: 100%;
     background:#dadada;
     padding:10px; 
 }
@@ -28,4 +30,11 @@ body {
 .remotevideos video{
     max-height:120px;
     float:left;
+}
+
+#chatbox{
+    margin:10px;
+    margin-left: 30px;
+    background-color: #eee;
+    padding: 10px;
 }
