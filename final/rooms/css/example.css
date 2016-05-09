@@ -11,6 +11,7 @@ body {
 
 .localvideo {
     float: right;
+    position: fixed;
 }
 
 .verse{
