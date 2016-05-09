@@ -61,7 +61,7 @@
             newPath = "https://jsonp.afeld.me/?url=" + path
             wwwPath = "http://www.sefaria.org/" + ref
             $.getJSON(newPath, function(response2){
-                $("#sefariaText").append("<a href='" + wwwPath + "'><h1>"+response2.title + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + response2.heTitle +  "</h1></a>")
+                $("#sefariaText").append("<h1><a href='" + wwwPath + "'>"+response2.title + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + response2.heTitle +  "</a></h1>")
                 text = response2.text;
                 heText = response2.he;
                 for(var i=0; i<heText.length; i++) {
