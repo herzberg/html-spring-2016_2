@@ -1,3 +1,4 @@
+$(function(){
 function $_GET(param) {
     var vars = {};
     window.location.href.replace( location.hash, '' ).replace( 
@@ -14,7 +15,6 @@ function $_GET(param) {
 }
 var myRandom = Math.floor(Math.random()*100000);
 var fireRooms = new Firebase('https://dafrol1rooms.firebaseio.com/')
-var fireRoom;
 var domainName = 'https://herzberg.github.io/html-spring-2016_2/final/mediaStreams/?p='
 function setContextId(contextId){
     console.log("setContextId",myContextId,contextId)
@@ -34,7 +34,7 @@ function setContextId(contextId){
         link = domainName + contextId
         jQuery("#peerlink").html("<a href='" + link + "'>" + link + "</a>");
         
-        fireRoom = fireRooms.child(contextId)
+        var fireRoom = fireRooms.child(contextId)
 
         setInterval(function(){
             json1 = {}
@@ -83,11 +83,15 @@ var trace = function (what, obj) {
     $_num2("#immediate").appendChild(pre);
 };
 
+var myContextId = null
+
+
+/*
 var myUsersDataRef = new Firebase('https://dafrol1users.firebaseio.com/')
 var myDataRef = new Firebase('https://dafrol1.firebaseio.com/')
 
 myUsersDataRef.on('child_added', function(snapshot) {
-    return//this doesn't workm
+    return//this doesn't work
     var message = snapshot.val();
     console.log("new user? :", message)
     if(message.random == myRandom)
@@ -100,10 +104,8 @@ myUsersDataRef.on('child_added', function(snapshot) {
         location.reload()
     }
 });
+*/
 
-var myContextId = null
-
-setContextId($_GET('p'))
 
 /*
 console.log(myDataRef)
@@ -130,17 +132,24 @@ myDataRef.on("value", function(snapshot) {
 });
 */
 
-
-var main = (function () {
     var broker;
     var rtc;
     trace("Ready");
     trace("Try connect the connectionBroker");
-    //contextSettings = {}
+    contextSettings = {}
+    contextId = $_GET('p')
+    console.log('contextId',contextId)
+    if(contextId != null ){
+        console.log('contextId not null1',contextId)
+        contextSettings =  {ctx: contextId}
+    }
+    setContextId(contextId)
 
-    var ws = new XSockets.WebSocket("wss://rtcplaygrouund.azurewebsites.net:443", ["connectionbroker"], {
-        ctx: 'b1355242-e8ea-485b-a178-911e2186a5ba'
-    });
+
+    var ws = new XSockets.WebSocket("wss://rtcplaygrouund.azurewebsites.net:443", ["connectionbroker"], 
+    contextSettings
+    //{//ctx: 'b1355242-e8ea-485b-a178-911e2186a5ba' //init ctx}
+    );
 
     var onError = function (err) {
         trace("error", arguments);
@@ -253,4 +262,3 @@ var main = (function () {
     });
     */
 });
-//document.addEventListener("DOMContentLoaded", main);

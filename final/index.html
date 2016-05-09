@@ -17,14 +17,31 @@
 		            for(var key in values){
 		                value = values[key]
 		                link = domainName + '?p=' + key
-		                roomsDiv.append("<a href='" + link + "'><big><b>" + key.substring(0,6) + "</b></big>: " + Object.keys(value).length + "</a><br>")
+		                roomsDiv.append("<a href='" + link + "'>" + key.substring(0,6) + ": " + Object.keys(value).length + "</a><br>")
 		            }            
-		            roomsDiv.append("<a href='" + domainName + "'><big><b>New Room</b></big></a>")
+		            roomsDiv.append("<a href='" + domainName + "'><b>New Room</b></a>")
 	    		})
 			});
 		</script>
 		<style>
-
+			body{
+				text-decoration: none;
+				text-align: center;
+				background-color: #347088;
+			}
+			a{
+				text-decoration: none;
+				padding: 20px;
+				color:#111;
+				font-size: 2em;
+			}
+			a:hover{
+				color: #99b;
+			}
+			h2{
+				font-size: 2.5em;
+				font-family: Impact, Charcoal, sans-serif;
+			}
 		</style>
 
 	</head>
