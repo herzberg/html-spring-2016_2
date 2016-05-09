@@ -89,3 +89,25 @@ a{
 a:hover{
     color:#688;
 }
+
+
+@media all and (max-width:600px){
+    #container{
+        display: block;
+    }
+    #chatbox{
+        max-width: 90%;
+    }
+    .localvideo video{
+        max-height: 80px;
+    }
+
+    .remotevideos video{
+        max-height: 90px;
+    }
+}
+
+/* override css for mobile browsers */
+@media all and (max-width:376px) {
+
+}
