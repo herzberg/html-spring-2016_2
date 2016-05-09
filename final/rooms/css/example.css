@@ -1,5 +1,5 @@
 body {
-    background-color: #dff;
+    background-color: #F8FBFE;
 }
 
 
@@ -10,17 +10,11 @@ body {
 }
 
 .localvideo {
-    right: 10px;
-    top: 10px;
     float: right;
-    max-width: 220px;
-    position: relative;
-    margin-right:auto;
-    margin-left:auto;
-    
-    /*
-    border: 1px solid #333;
-    min-width: 100px; */
+}
+
+.verse{
+    padding: 3px;
 }
 
 #sefariaText{
@@ -30,8 +24,10 @@ body {
 }
 
 .localvideo video {
+    float: right;
     width:100%;
-    max-height: 190px;
+    padding: 20px;
+    max-height: 150px;
 }
 .remotevideos {
     width: 100%;    
@@ -49,7 +45,7 @@ body {
     top: 0px;
     width: 100%;
     height: 200px;
-    background:#abb;
+    background:#2966B8;
     z-index: 10;
 }
 
@@ -62,7 +58,7 @@ body {
 #chatbox{
     margin:10px;
     margin-left: 30px;
-    background-color: #eee;
+    background-color: #8EB4E6;
     padding: 10px;
 }
 
