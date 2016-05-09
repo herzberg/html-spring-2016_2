@@ -59,6 +59,7 @@ var $_num2 = function (selector, el) {
 }
 
 var trace = function (what, obj) {
+    if(true) return
     var pre = document.createElement("pre");
     pre.textContent = JSON.stringify(what) + " - " + JSON.stringify(obj || "");
     $_num2("#immediate").appendChild(pre);
