@@ -52,7 +52,7 @@ body {
 }
 
 .remotevideos video{
-    position: fixed;
+    position: relative;
     max-height: 180px;
     margin: 10px;
     float:left;
