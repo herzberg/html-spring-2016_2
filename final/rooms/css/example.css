@@ -1,0 +1,51 @@
+body {
+    background-color: #dff;
+}
+
+#container{
+    display: flex;
+}
+
+.localvideo {
+    right: 10px;
+    top: 10px;
+    float: right;
+    max-width: 220px;
+    position: relative;
+    margin-right:auto;
+    margin-left:auto;
+    border: 1px solid #333;
+    z-index: 100;
+    min-width: 100px;
+}
+
+#sefariaText{
+    margin: 20px;
+    padding: 5px;
+}
+
+.localvideo video {
+    width:100%;
+}
+.remotevideos {
+    height:420px;
+    width: 100%;
+    background:#dadada;
+    padding:10px; 
+}
+
+.allVideos{
+    width: 30%;
+}
+
+.remotevideos video{
+    max-height:220px;
+    float:left;
+}
+
+#chatbox{
+    margin:10px;
+    margin-left: 30px;
+    background-color: #eee;
+    padding: 10px;
+}

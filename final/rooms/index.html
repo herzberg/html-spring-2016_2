@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Daf Roulette</title>
+    <meta charset="utf-8" />
+    <link href="css/example.css" rel="stylesheet" />
+
+    <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+    <script src="XSockets.latest.js"></script>
+    <script src="XSockets.WebRTC.latest.js"></script>
+    <script src="https://code.jquery.com/jquery-latest.js"></script>
+    <script src="chat.js"></script>
+
+</head>
+<body>
+    <div id='container'>
+        
+        <div id='allVideo'>
+            <!-- <h2>Remote videos</h2> -->
+            <div class="localvideo">
+                <video autoplay></video>
+            </div>
+            <div class="remotevideos"></div>
+             
+            <div id='peerlink'></div>
+            
+
+            
+            
+            
+
+            
+            <p>Click on vid to mute</p>
+            <ul></ul>
+
+
+            <small><small>
+            <div id="immediate">
+                <h5>Trace</h5></div>
+            </small></small>
+        </div>
+        <div id='sefariaText'>
+        </div>
+        <div id='chatbox'>
+            <h3>Chat box</h3>
+            <div id='messagesDiv'></div>
+            <input type='text' id='nameInput' placeholder='Name'>
+            <input type='text' id='messageInput' placeholder='Message'>
+            <button onclick="sendChatMessage()">Send</button>     
+        </div>
+    </div>
+    
+
+    <script src="videos.js"></script>
+    <script>
+
+            $(document).ready(function(){
+                console.log("test")
+            
+                 
+                $.getJSON("https://jsonp.afeld.me/?url=http://www.sefaria.org/api/texts/Genesis.2?commentary=0", function(response2){
+                        console.log(response2)
+                        console.log("yo")
+                        $("#sefariaText").append("<h1>"+response2.indexTitle + "</h1>")
+                        text = response2.text;
+                        for(var i=0; i<text.length; i++) {
+                            $("#sefariaText").append("<div>" + text[i] + "</div>");
+                        }
+                });
+                
+
+            });
+        </script>
+</body>
+</html>
