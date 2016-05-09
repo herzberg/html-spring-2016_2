@@ -14,9 +14,11 @@ body {
     position: relative;
     margin-right:auto;
     margin-left:auto;
-    border: 1px solid #333;
+    
     z-index: 100;
-    /*min-width: 100px; */
+    /*
+    border: 1px solid #333;
+    min-width: 100px; */
 }
 
 #sefariaText{
@@ -35,7 +37,7 @@ body {
 }
 
 .allVideos{
-    max-width: 30%;
+    width: 30%;
 }
 
 .remotevideos video{

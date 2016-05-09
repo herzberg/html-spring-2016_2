@@ -16,6 +16,7 @@ function $_GET(param) {
 var myRandom = Math.floor(Math.random()*100000);
 var fireRooms = new Firebase('https://dafrol1rooms.firebaseio.com/')
 var domainName = 'https://herzberg.github.io/html-spring-2016_2/final/rooms/?p='
+var lastRoomCount = -1;
 function setContextId(contextId){
     console.log("setContextId",myContextId,contextId)
     if(myContextId == null && contextId != null){
@@ -36,6 +37,29 @@ function setContextId(contextId){
         jQuery("#peerlink").html("<a href='" + link + "'>" + link + "</a>");
         
         var fireRoom = fireRooms.child(contextId)
+        fireRoom.on('value',function(snapshot){
+            values = snapshot.val()
+            currTime = (new Date()).getTime()
+            roomCount = 0
+            for(var key in values){
+                value = values[key]
+                console.log("item fireroom",key, value)
+                if(value.time <  (new Date()).getTime() - 40000){
+                    json1 = {}
+                    json1[key] = null;
+                    fireRoom.update(json1)
+                }else{
+                    roomCount++;
+                }
+            }
+            /*
+            if(lastRoomCount != -1 && roomCount > lastRoomCount){
+                alert("A person has joined reloading page...")
+                location.reload()
+            }
+            lastRoomCount = roomCount
+            */
+        });
 
         setInterval(function(){
             json1 = {}
