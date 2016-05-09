@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Chat rooms</title>
+		<title>Lobby</title>
 		<script src="https://code.jquery.com/jquery-latest.js"></script>
 		<script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
 		<script>
@@ -10,6 +10,7 @@
 				console.log("test")
 				var domainName = 'https://herzberg.github.io/html-spring-2016_2/final/rooms/'
 				var fireRooms = new Firebase('https://dafrol1rooms.firebaseio.com/')
+				$("#rooms").append("<a href='" + domainName + "'><b>New Room</b></a>")
 				fireRooms.on('value',function(snapshot){
 		            values = snapshot.val()
 		            roomsDiv = $("#rooms")
@@ -37,7 +38,7 @@
 		            roomsDiv.append("<a href='" + domainName + "'><b>New Room</b></a>")
 	    		})
 				
-	    		
+
 			});
 		</script>
 		<style>
