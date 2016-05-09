@@ -6,7 +6,7 @@ body {
 #container{
     display: flex;
     position: relative;
-    top: 200px; 
+    top: 200px;
 }
 
 .localvideo {
@@ -34,23 +34,28 @@ body {
     max-height: 190px;
 }
 .remotevideos {
-    width: 100%;
-    max-height: 190px;
-    padding:10px; 
+    width: 100%;    
+}
+
+#roomInfo{
+    position: relative;
+    top: 200px;
 }
 
 #allVideos{
     position: fixed;
+    margin: 0px;
+    padding: 0px;   
     top: 0px;
     width: 100%;
     height: 200px;
-    background:#dadada;
-    clear:both;
+    background:#abb;
     z-index: 10;
 }
 
 .remotevideos video{
-    max-height:220px;
+    max-height: 180px;
+    margin: 10px;
     float:left;
 }
 
@@ -63,4 +68,18 @@ body {
 
 #immediate{
     display: none;
+}
+
+#roomInfo{
+    font-size: 1.5em;
+    color: #111;
+}
+
+a{
+    text-decoration: none;
+    color: #111;
+}
+
+a:hover{
+    color:#666;
 }

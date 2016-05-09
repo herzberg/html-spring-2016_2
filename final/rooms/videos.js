@@ -21,9 +21,7 @@ function setContextId(contextId){
     console.log("setContextId",myContextId,contextId)
     if(myContextId == null && contextId != null){
         myContextId = contextId
-        console.log("have a contextId...",contextId)
-
-        
+     
         
         if($_GET('p') == null){
             currLocation = location.protocol+'//'+location.host+location.pathname
@@ -34,7 +32,7 @@ function setContextId(contextId){
         //myDataRef.push({contextId: contextId});
         //myUsersDataRef.push({contextId: contextId,random:myRandom});      
         link = domainName + contextId
-        //jQuery("#peerlink").html("<a href='" + link + "'>" + link + "</a>");
+        $("#peerlink").html("<a href='" + link + "'>" + contextId.substring(0,6) + "</a>");
         
         var fireRoom = fireRooms.child(contextId)
         fireRoom.on('value',function(snapshot){
@@ -43,7 +41,6 @@ function setContextId(contextId){
             roomCount = 0
             for(var key in values){
                 value = values[key]
-                console.log("item fireroom",key, value)
                 if(value.time <  (new Date()).getTime() - 40000){
                     json1 = {}
                     json1[key] = null;
@@ -52,6 +49,7 @@ function setContextId(contextId){
                     roomCount++;
                 }
             }
+            $('#roomCount').html(": " + roomCount)
             /*
             if(lastRoomCount != -1 && roomCount > lastRoomCount){
                 alert("A person has joined reloading page...")
@@ -64,13 +62,10 @@ function setContextId(contextId){
         setInterval(function(){
             json1 = {}
             json1[myRandom] = {time:(new Date()).getTime()}
-            console.log("json1",json1)
             fireRoom.update(json1)    
         },3000)
         
 
-    }else{
-        console.log("not setting peer link",myContextId,contextId)
     }
 }
 
@@ -144,9 +139,7 @@ myDataRef.on("value", function(snapshot) {
     trace("Try connect the connectionBroker");
     contextSettings = {}//{ctx: 'b1355242-e8ea-485b-a178-911e2186a5ba'}  //init ctx
     contextId = $_GET('p')
-    console.log('contextId',contextId)
     if(contextId != null ){
-        console.log('contextId not null1',contextId)
         contextSettings =  {ctx: contextId}
     }
     setContextId(contextId)
