@@ -34,7 +34,7 @@ function setContextId(contextId){
         //myDataRef.push({contextId: contextId});
         //myUsersDataRef.push({contextId: contextId,random:myRandom});      
         link = domainName + contextId
-        jQuery("#peerlink").html("<a href='" + link + "'>" + link + "</a>");
+        //jQuery("#peerlink").html("<a href='" + link + "'>" + link + "</a>");
         
         var fireRoom = fireRooms.child(contextId)
         fireRoom.on('value',function(snapshot){
@@ -142,7 +142,7 @@ myDataRef.on("value", function(snapshot) {
     var rtc;
     trace("Ready");
     trace("Try connect the connectionBroker");
-    contextSettings = {}
+    contextSettings = {}//{ctx: 'b1355242-e8ea-485b-a178-911e2186a5ba'}  //init ctx
     contextId = $_GET('p')
     console.log('contextId',contextId)
     if(contextId != null ){
@@ -154,7 +154,6 @@ myDataRef.on("value", function(snapshot) {
 
     var ws = new XSockets.WebSocket("wss://rtcplaygrouund.azurewebsites.net:443", ["connectionbroker"], 
     contextSettings
-    //{//ctx: 'b1355242-e8ea-485b-a178-911e2186a5ba' //init ctx}
     );
 
     var onError = function (err) {
