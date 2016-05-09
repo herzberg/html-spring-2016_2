@@ -24,6 +24,7 @@ body {
 }
 
 .localvideo video {
+    position: fixed;
     float: right;
     width:100%;
     padding: 20px;
@@ -50,6 +51,7 @@ body {
 }
 
 .remotevideos video{
+    position: fixed;
     max-height: 180px;
     margin: 10px;
     float:left;
