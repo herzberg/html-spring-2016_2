@@ -24,7 +24,7 @@ body {
 }
 
 .localvideo video {
-    position: fixed;
+    position: absolute;
     float: right;
     width:100%;
     padding: 20px;
