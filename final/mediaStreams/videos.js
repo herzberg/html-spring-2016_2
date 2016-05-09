@@ -12,17 +12,58 @@ function $_GET(param) {
     }
     return vars;
 }
-
+var myRandom = Math.floor(Math.random()*100000);
+var fireRooms = new Firebase('https://dafrol1rooms.firebaseio.com/')
+var fireRoom;
 var domainName = 'https://herzberg.github.io/html-spring-2016_2/final/mediaStreams/?p='
 function setContextId(contextId){
     console.log("setContextId",myContextId,contextId)
     if(myContextId == null && contextId != null){
         myContextId = contextId
         console.log("have a contextId...",contextId)
+
+        
+        
+        if($_GET('p') == null){
+            currLocation = location.protocol+'//'+location.host+location.pathname
+            window.location.href =  currLocation + "?p=" + myContextId
+        }
+
         //myDataRef.push({contextId: contextId});
         //myUsersDataRef.push({contextId: contextId,random:myRandom});      
         link = domainName + contextId
         jQuery("#peerlink").html("<a href='" + link + "'>" + link + "</a>");
+        
+        fireRoom = fireRooms.child(contextId)
+
+        setInterval(function(){
+            json1 = {}
+            json1[myRandom] = {time:(new Date()).getTime()}
+            console.log("json1",json1)
+            fireRoom.update(json1)    
+        },3000)
+        
+
+        fireRoom.on('value',function(snapshot){
+            values = snapshot.val()
+            currTime = (new Date()).getTime()
+            newArray = []
+            for(var key in values){
+                value = values[key]
+                console.log("item fireroom",key, value)
+                if(value.time <  (new Date()).getTime() - 40000){
+                    newArray.push({
+                        random: myRandom,
+                        time: (new Date()).getTime()
+                    })
+                    json1 = {}
+                    json1[key] = null;
+                    fireRoom.update(json1)
+                }
+            }
+            console.log("newArray",newArray)
+           // fireRoom.set(newArray)
+        });
     }else{
         console.log("not setting peer link",myContextId,contextId)
     }
@@ -61,9 +102,10 @@ myUsersDataRef.on('child_added', function(snapshot) {
 });
 
 var myContextId = null
-var myRandom = Math.random();
+
 setContextId($_GET('p'))
 
+/*
 console.log(myDataRef)
 myDataRef.on("value", function(snapshot) {
     console.log("value",snapshot.val());
@@ -86,6 +128,7 @@ myDataRef.on("value", function(snapshot) {
         ranMain = true;
     }
 });
+*/
 
 
 var main = (function () {

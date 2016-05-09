@@ -2,25 +2,25 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Daf Roulette</title>
+		<title>Chat rooms</title>
 		<script src="https://code.jquery.com/jquery-latest.js"></script>
+		<script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
 		<script>
-
 			$(document).ready(function(){
 				console.log("test")
-			
-				 
-				$.getJSON("https://jsonp.afeld.me/?url=http://www.sefaria.org/api/texts/Genesis.2?commentary=0", function(response2){
-						console.log(response2)
-						console.log("yo")
-						$("body").append("<h1>"+response2.indexTitle + "</h1>")
-						text = response2.text;
-					    for(var i=0; i<text.length; i++) {
-							$("body").append("<div>" + text[i] + "</div>");
-				      	}
-				});
-				
-
+				var domainName = 'https://herzberg.github.io/html-spring-2016_2/final/mediaStreams/'
+				var fireRooms = new Firebase('https://dafrol1rooms.firebaseio.com/')
+				fireRooms.on('value',function(snapshot){
+		            values = snapshot.val()
+		            roomsDiv = $("#rooms")
+		            roomsDiv.html("")
+		            for(var key in values){
+		                value = values[key]
+		                link = domainName + '?p=' + key
+		                roomsDiv.append("<a href='" + link + "'><big><b>" + key.substring(0,6) + "</b></big>: " + Object.keys(value).length + "</a><br>")
+		            }            
+		            roomsDiv.append("<a href='" + domainName + "'><big><b>New Room</b></big></a>")
+	    		})
 			});
 		</script>
 		<style>
@@ -29,5 +29,12 @@
 
 	</head>
 	<body>
+	<div id='roomContainer'>
+        <h2>Rooms</h2>
+        <div id='rooms'>
+
+        </div>
+    </div>
+
 	</body>
 </html>
