@@ -26,7 +26,8 @@ function setContextId(contextId){
         
         if($_GET('p') == null){
             currLocation = location.protocol+'//'+location.host+location.pathname
-            window.location.href =  currLocation + "?p=" + myContextId
+            //window.location.href =  currLocation + "?p=" + myContextId
+            window.history.pushState('page2','Daf',currLocation + "?p=" + myContextId)
         }
 
         //myDataRef.push({contextId: contextId});

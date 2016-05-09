@@ -16,6 +16,7 @@
 		            roomsDiv.html("")
 		            for(var key in values){
 		                room = values[key]
+		                roomCount = 0
 		                for(var randKey in room){
 		                	person = room[randKey]
 			                console.log("item fireroom 5",randKey, person)
@@ -24,12 +25,14 @@
 			                    json1[key] = {}
 			                    json1[key][randKey] = null;
 			                    fireRooms.update(json1)
-			                }	
+			                }else{
+			                	roomCount++;
+			                }
 		                }
 
 
 		                link = domainName + '?p=' + key
-		                roomsDiv.append("<a href='" + link + "'>" + key.substring(0,6) + ": " + Object.keys(room).length + "</a><br>")
+		                roomsDiv.append("<a href='" + link + "'>" + key.substring(0,6) + ": " + roomCount + "</a><br>")
 		            }            
 		            roomsDiv.append("<a href='" + domainName + "'><b>New Room</b></a>")
 	    		})
