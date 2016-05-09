@@ -41,7 +41,7 @@ function setContextId(contextId){
             roomCount = 0
             for(var key in values){
                 value = values[key]
-                if(value.time <  (new Date()).getTime() - 40000){
+                if(value.time <  (new Date()).getTime() - 10000){
                     json1 = {}
                     json1[key] = null;
                     fireRoom.update(json1)

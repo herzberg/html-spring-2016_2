@@ -56,19 +56,55 @@
 
     <script src="videos.js"></script>
     <script>
-
+        function writePage(path){
+            $.getJSON(path, function(response2){
+                $("#sefariaText").append("<h1>"+response2.title + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + response2.heTitle +  "</h1>")
+                text = response2.text;
+                heText = response2.he;
+                for(var i=0; i<heText.length; i++) {
+                    if(text[i]){
+                        line = "<div class='verse'>" + heText[i] + "<br>" + text[i] + "</div>"
+                    }else{
+                        line = "<span class='verse'>" + heText[i] + "</span>"
+                    }
+                    $("#sefariaText").append(line);
+                }
+            });
+        }
             $(document).ready(function(){
                 console.log("test")
-            
-                 
-                $.getJSON("https://jsonp.afeld.me/?url=http://www.sefaria.org/api/texts/Genesis.2?commentary=0", function(response2){
-                        //console.log(response2)
-                        $("#sefariaText").append("<h1>"+response2.indexTitle + "</h1>")
-                        text = response2.text;
-                        for(var i=0; i<text.length; i++) {
-                            $("#sefariaText").append("<div class='verse'>" + text[i] + "</div>");
+                today = new Date()
+                dateStr = (today.getMonth() +1) + "/" + today.getDate() + "/" + today.getFullYear();
+                console.log("dateStr",dateStr)
+                $.getJSON("daf-yomi.json",{}, function( data ){ 
+                    
+                    list = data.list
+                    daf = null
+                    for(i=0;i<list.length;i++){
+                        obj = list[i]
+                        if(obj.date == dateStr){
+                            daf = obj.daf
+                            break
                         }
+                    } 
+
+                    daf = daf.split(" ")
+                    book = daf[0]
+                    page = daf[1]
+                    path = "https://jsonp.afeld.me/?url=http://www.sefaria.org/api/texts/" + book + "." + page + "a"
+                    //"Genesis.2"
+                    "?commentary=0";
+                    console.log(path)
+                    writePage(path)
+                    path = "https://jsonp.afeld.me/?url=http://www.sefaria.org/api/texts/" + book + "." + page + "b"
+                    "?commentary=0";
+                    writePage(path)
+                    
+                  
                 });
+               
+                 
+                
                 
 
             });

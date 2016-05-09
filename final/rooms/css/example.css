@@ -16,12 +16,18 @@ body {
 
 .verse{
     padding: 3px;
+    font-size: 1.5em;
+}
+
+.verse:hover{
+    color:#555;
 }
 
 #sefariaText{
     
     margin: 20px;
     padding: 5px;
+    text-align: right;
 }
 
 .localvideo video {
@@ -63,6 +69,7 @@ body {
     margin-left: 30px;
     background-color: #8EB4E6;
     padding: 10px;
+    max-width: 25%;
 }
 
 #immediate{
