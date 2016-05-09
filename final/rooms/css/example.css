@@ -11,7 +11,6 @@ body {
 
 .localvideo {
     float: right;
-    position: fixed;
 }
 
 .verse{
@@ -25,6 +24,7 @@ body {
 }
 
 .localvideo video {
+    position: fixed;
     right: 10px;
     float: right;
     padding: 20px;
