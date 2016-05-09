@@ -56,9 +56,12 @@
 
     <script src="videos.js"></script>
     <script>
-        function writePage(path){
-            $.getJSON(path, function(response2){
-                $("#sefariaText").append("<h1>"+response2.title + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + response2.heTitle +  "</h1>")
+        function writePage(ref){
+            path = "http://www.sefaria.org/api/texts/" + ref + "?commentary=0";
+            newPath = "https://jsonp.afeld.me/?url=" + path
+            wwwPath = "http://www.sefaria.org/" + ref
+            $.getJSON(newPath, function(response2){
+                $("#sefariaText").append("<a href='" + wwwPath + "'><h1>"+response2.title + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + response2.heTitle +  "</h1></a>")
                 text = response2.text;
                 heText = response2.he;
                 for(var i=0; i<heText.length; i++) {
@@ -91,14 +94,11 @@
                     daf = daf.split(" ")
                     book = daf[0]
                     page = daf[1]
-                    path = "https://jsonp.afeld.me/?url=http://www.sefaria.org/api/texts/" + book + "." + page + "a"
-                    //"Genesis.2"
-                    "?commentary=0";
-                    console.log(path)
-                    writePage(path)
-                    path = "https://jsonp.afeld.me/?url=http://www.sefaria.org/api/texts/" + book + "." + page + "b"
-                    "?commentary=0";
-                    writePage(path)
+                    
+                    ref = book + "." + page + "a"
+                    writePage(ref)
+                    ref = book + "." + page + "b"
+                    writePage(ref)
                     
                   
                 });
